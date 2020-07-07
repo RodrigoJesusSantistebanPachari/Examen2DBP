@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="javascript.js"></script>
+    <style>
+        table, td {
+            border: 1px solid red;
+        }
+    </style>
+    <title>Title</title>
+</head>
+<body>
+
+<div id="div1"><h2>Cargando</h2></div>
+<button>Se muestran los datos</button>
+<table id="myTable">
+    <tr>
+        <td>Nombre JUAN</td>
+        <td>CATEGORY 150</td>
+    </tr>
+    <tr>
+        <td>Nombre EDGAR</td>
+        <td>CATEGORY 151</td>
+    </tr>
+    <tr>
+        <td>Nombre PEDRO</td>
+        <td>CATEGORY 152</td>
+    </tr>
+</table>
+<br>
+
+<button type="button" onclick="myFunction()">Try it</button>
+
+
+
+<script>
+    $(document).ready(function(){
+        $("button").click(function(){
+            $.ajax({
+                type: "GET",
+                uri: 'CategoryService/FindAll',
+                dataType: 'aplication/json',
+                // data: "{name:'tipo1', }",
+                success: function (result) {
+                    var table = document.getElementById("myTable");
+                    $.each(result, function(i, obj) {
+                        alert(obj.name);
+                        var row = table.insertRow(0);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell2 = row.insertCell(2);
+                        cell1.innerHTML = obj.id;
+                        cell2.innerHTML = obj.name;
+                        cell3.innerHTML = obj.description;
+                    });
+                }
+            });
+        });
+    });
+
+</script>
+
+</body>
+</html>
